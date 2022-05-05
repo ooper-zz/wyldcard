@@ -87,4 +87,13 @@ See the note at the top of this page. WyldCard makes use of generated Java sourc
 
 See the [section above](#using-the-intellij-ide): IntelliJ, by default, attempts to compile window layouts directly into binary (`.class` files). This project must be configured to translate these forms into Java source code (for portability to other IDEs and build environments).
 
+#### 3. During GenerateBundle, I am getting the error 'Could not create a customized JRE due to JDK version is <a jdk version>. Must use jrePath property to specify JRE location to be embedded'. This is because the build doesn't know which JRE to embed. To fix, add the jrePath property to the generateBundle task of the build.gradle file as follows:
+```
+  task generateBundle(type: io.github.fvarrui.javapackager.gradle.PackageTask, dependsOn: build) {
+    ...
+    jrePath = file('<path to your jre>')
+    bundleJre = true
+    ...
+   }
+```
 #### That's all folks...
